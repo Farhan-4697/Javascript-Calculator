@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        button {
+            width: 100%;
+            height: 50px;
+            font-size: x-large;
+        }
+
+        #id1 {
+            width: 800px;
+            border: solid 1px black;
+            margin: auto;
+        }
+
+        .id2 {
+            width: 99%;
+            font-size: xx-large;
+            text-align: right;
+        }
+
+        #id3 {
+            width: 100%;
+            text-align: center;
+        }
+
+        #id4 {
+            width: 25%;
+        }
+    </style>
+</head>
+
+<body>
+    <table id="id1">
+        <tr>
+            <td id="id3">
+                <h1><u>Standard Calculator</u></h1>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="text" class="id2" id="textboxhistory" readonly="true">
+            </td>
+        </tr>
+
+
+        <tr>
+            <td>
+                <input type="text" class="id2" id="textbox" readonly="true">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table id="id3">
+                    <tr>
+                        <td colspan="3" ;>
+                            <button onclick="clearall()">CE</button>
+                        </td>
+                        <td>
+                            <button onclick="clearone()">Backspace</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td id="id4">
+                            <button onclick="typenumber(this)">9</button>
+                        </td>
+                        <td id="id4">
+                            <button onclick="typenumber(this)">8</button>
+                        </td>
+                        <td id="id4">
+                            <button onclick="typenumber(this)">7</button>
+                        </td>
+                        <td id="id4">
+                            <button onclick="operation(this)">+</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td id="id4">
+                            <button onclick="typenumber(this)">6</button>
+                        </td>
+                        <td id="id4">
+                            <button onclick="typenumber(this)">5</button>
+                        </td>
+                        <td id="id4">
+                            <button onclick="typenumber(this)">4</button>
+                        </td>
+                        <td id="id4">
+                            <button onclick="operation(this)">-</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td id="id4">
+                            <button onclick="typenumber(this)">3</button>
+                        </td>
+                        <td id="id4">
+                            <button onclick="typenumber(this)">2</button>
+                        </td>
+                        <td id="id4">
+                            <button onclick="typenumber(this)">1</button>
+                        </td>
+                        <td id="id4">
+                            <button onclick="operation(this)">*</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td id="id4">
+                            <button onclick="typenumber(this)">.</button>
+                        </td>
+                        <td id="id4">
+                            <button onclick="typenumber(this)">0</button>
+                        </td>
+                        <td id="id4">
+                            <button onclick="calculate()">=</button>
+                        </td>
+                        <td id="id4">
+                            <button onclick="operation(this)">/</button>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+
+    <script>
+        let operator;
+
+        function typenumber(ctrl) {
+            let textbox = document.getElementById("textbox");
+            value = textbox.value;
+            if (ctrl.innerText == ".") {
+                if (value.indexOf(".") != -1)
+                    return;
+            }
+
+
+            let number = value + ctrl.innerText;
+            textbox.value = value + ctrl.innerText;
+        }
+
+
+        function clearall() {
+            let textbox = document.getElementById("textbox");
+            textbox.value = " ";
+            textboxhistory.value = " ";
+            operator.value = " ";
+        }
+
+
+        function clearone() {
+            let textbox = document.getElementById("textbox");
+            let text = textbox.value;
+            let length = text.length;
+            if (length > 0) {
+                let newtext = text.slice(0, length - 1);
+                textbox.value = newtext;
+            }
+        }
+
+        function operation(ctrl) {
+            let textbox = document.getElementById("textbox");
+            let texthistory = document.getElementById("textboxhistory");
+            textboxhistory.value = textbox.value;
+            textbox.value = " ";
+            operator = ctrl.innerText;
+        }
+
+        function calculate() {
+            let textbox = document.getElementById("textbox");
+            let textboxhistory = document.getElementById("textboxhistory");
+
+            let no1 = Number(textboxhistory.value);
+            let no2 = Number(textbox.value);
+
+            let answer = 0;
+            display = textboxhistory.value.concat(operator, textbox.value);
+
+            if (operator == "+") {
+                answer = no1 + no2;
+            }
+
+            if (operator == "-") {
+                answer = no1 - no2
+            }
+
+            if (operator == "*") {
+                answer = no1 * no2
+            }
+
+            if (operator == "/") {
+                answer = no1 / no2
+            }
+
+
+
+
+            textboxhistory.value = display;
+            textbox.value = answer;
+        }
+
+    </script>
+
+
+
+
+</body>
+
+</html>
